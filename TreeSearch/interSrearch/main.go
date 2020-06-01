@@ -10,29 +10,39 @@ type TreeNode struct {
 
 //中序：从左开始找，第一次退回就打印
 //递归中序
-func InterOrderTree(root *TreeNode) []int {
-	var vals []int
-	if root != nil {
-		InterOrderTree(root.Left)
-		vals = append(vals, root.Val)
-		InterOrderTree(root.Right)
-	}
-	return vals
+var res []int
+
+func inorderTraversal(root *TreeNode) []int {
+	res = make([]int, 0)
+	dfs1(root)
+	return res
 }
 
+func dfs1(root *TreeNode) {
+	if root != nil {
+		dfs1(root.Left)
+		res = append(res, root.Val)
+		dfs1(root.Right)
+	}
+}
 //非递归中序
-func InterOrderTree2(root *TreeNode) []int {
-	var vals []int
+func inorderTraversal2(root *TreeNode) []int {
+	res = make([]int, 0)
+	dfs1(root)
+	return res
+}
+
+func dfs2(root *TreeNode){
 	stack := Stack.New()
 	stack.Push(root)
 	currentNode, _ := stack.Top()
 	for {
-		if currentNode.(*TreeNode) != nil {
+		if currentNode != nil {
 			stack.Push(currentNode)
 			currentNode = currentNode.(*TreeNode).Left
 		} else {
 			topNode, _ := stack.Pop()
-			vals = append(vals, topNode.(*TreeNode).Val)
+			res = append(res, topNode.(*TreeNode).Val)
 			currentNode = topNode.(*TreeNode).Right
 		}
 
@@ -40,5 +50,8 @@ func InterOrderTree2(root *TreeNode) []int {
 			break
 		}
 	}
-	return vals
 }
+
+
+
+

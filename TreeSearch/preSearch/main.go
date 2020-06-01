@@ -8,34 +8,35 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-func main() {
-
-}
 
 //前序：从左开始找，找到一个打印一个
 
+var res []int
 //递归前序遍历
 func PreOrderTree(root *TreeNode) []int {
-	var vals []int
+	res = []int{}
+	Pre1(root)
+	return res
+}
+
+func Pre1(root *TreeNode) {
 	if root != nil {
-		vals = append(vals, root.Val)
+		res = append(res, root.Val)
 		//	遍历左节点
-		PreOrderTree(root.Left)
+		Pre1(root.Left)
 		//	遍历右节点
-		PreOrderTree(root.Right)
+		Pre1(root.Right)
 	}
-	return vals
 }
 
 //非递归前序遍历
-func PreOrderTree2(root *TreeNode) []int {
-	var vals []int
+func Pre2(root *TreeNode){
 	stack := Stack.New()
 	stack.Push(root)
 	currentNode, _ := stack.Top()
 	for {
 		if currentNode != nil {
-			vals = append(vals, currentNode.(*TreeNode).Val)
+			res = append(res, currentNode.(*TreeNode).Val)
 			//入栈，找左节点
 			stack.Push(currentNode)
 			currentNode = currentNode.(*TreeNode).Left
@@ -49,5 +50,4 @@ func PreOrderTree2(root *TreeNode) []int {
 			break
 		}
 	}
-	return vals
 }

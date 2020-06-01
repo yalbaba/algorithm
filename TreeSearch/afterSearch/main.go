@@ -9,16 +9,16 @@ type TreeNode struct {
 }
 
 //后序递归
-func AfterSearch(root *TreeNode) []int {
-	var vals []int
+var res []int
+
+func AfterSearch(root *TreeNode) {
 	if root != nil {
 		AfterSearch(root.Left)
 		AfterSearch(root.Right)
-		vals = append(vals, root.Val)
+		res = append(res, root.Val)
 	}
-	return vals
 }
-
+//后序非递归
 func AfterSearch2(root *TreeNode) []int {
 	stack := Stack.New()
 	var vals []int
@@ -30,7 +30,7 @@ func AfterSearch2(root *TreeNode) []int {
 			stack.Push(currentNode)
 			currentNode = currentNode.(*TreeNode).Left
 		} else {
-			currentNode, _ = stack.Top()
+			currentNode, _ = stack.Top() // 不出栈的获取栈顶
 			if currentNode.(*TreeNode).Right != nil && temp != currentNode.(*TreeNode).Right {
 				currentNode = currentNode.(*TreeNode).Right
 			} else {
@@ -47,3 +47,21 @@ func AfterSearch2(root *TreeNode) []int {
 	}
 	return vals
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
