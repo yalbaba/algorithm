@@ -25,12 +25,12 @@ func AfterSearch2(root *TreeNode) []int {
 	stack.Push(root)
 	currentNode, _ := stack.Top()
 	var temp *TreeNode
-	for {
+	for stack.Len() != 0 || currentNode != nil {
 		if currentNode != nil {
 			stack.Push(currentNode)
 			currentNode = currentNode.(*TreeNode).Left
 		} else {
-			currentNode, _ = stack.Top() // 不出栈的获取栈顶
+			currentNode, _ = stack.Top() // 不出栈,获取栈顶
 			if currentNode.(*TreeNode).Right != nil && temp != currentNode.(*TreeNode).Right {
 				currentNode = currentNode.(*TreeNode).Right
 			} else {
@@ -41,9 +41,7 @@ func AfterSearch2(root *TreeNode) []int {
 			}
 		}
 
-		if (stack.Len() == 0) && currentNode == nil {
-			break
-		}
+
 	}
 	return vals
 }
